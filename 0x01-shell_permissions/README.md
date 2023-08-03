@@ -13,3 +13,4 @@ This project introduces and tests the knowledge of file permissions in shell scr
 #10-mirror_permissions: The script sets the mode of the file hello the same as olleh’s mode
 #11-directories_permissions: The script adds execute permission to all subdirectories of the current directory for the owner, the group owner and all other users except regular files
 #12-directory_permissions: The script creates a directory called my_dir with permissions 751 in the working directory
+#13-change_group: The script changes the group owner to school for the file hello
