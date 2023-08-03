@@ -11,3 +11,4 @@ This project introduces and tests the knowledge of file permissions in shell scr
 #8-James_Bond: The script sets no permission to the owner and group but sets all permission to other users of the file hello
 #9-John_Doe: The script sets the mode of the file hello to -rwxr-x-wx
 #10-mirror_permissions: The script sets the mode of the file hello the same as olleh’s mode
+#11-directories_permissions: The script adds execute permission to all subdirectories of the current directory for the owner, the group owner and all other users except regular files
