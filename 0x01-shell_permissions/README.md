@@ -15,3 +15,4 @@ This project introduces and tests the knowledge of file permissions in shell scr
 #12-directory_permissions: The script creates a directory called my_dir with permissions 751 in the working directory
 #13-change_group: The script changes the group owner to school for the file hello
 #100-change_owner_and_group: The script changes all the files and directories in the working directory belonging to owner to vincent, and the group owner to staff
+#101-symbolic_link_permissions: This a script that changes the owner and the group owner of__hello to vincent and staff respectively while__hello is a symbolic link
