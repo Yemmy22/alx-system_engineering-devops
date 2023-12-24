@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script displays the PID of the current process
+
+pgrep -f 0-what-is-my-pid
