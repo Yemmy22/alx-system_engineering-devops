@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script displays I am invincible!!! when indefinite loop process receives a SIGTERM signal
+
+trap 'echo "I am invincible!!!"' SIGTERM
+
+while true; do
+	echo "To infinity and beyond"
+	sleep 2
+done
