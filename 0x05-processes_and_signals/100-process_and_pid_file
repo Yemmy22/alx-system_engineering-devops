@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Endless loop catching signals
+
+pid="$(pgrep -f '100-process_and_pid_file')"
+echo "$pid" | sudo tee /var/run/myscript.pid > /dev/null
+
+trap "echo 'I hate the kill command'" SIGTERM
+trap "echo 'Y U no love me?!'" SIGINT
+trap "sudo rm /var/run/myscript.pid; kill \$(< /var/run/myscript.pid)" SIGQUIT SIGTERM
+
+while true; do
+	echo "To infinity and beyond"
+	sleep 2
+done
