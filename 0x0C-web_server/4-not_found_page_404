@@ -108,7 +108,7 @@ apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 echo 'Hello World!' > /var/www/html/index.html
 
-printf "Ceci n'est pas une page\n\n" >  /var/www/html/custom_404.html
+printf "Ceci n'est pas une page\n\n\n" >  /var/www/html/custom_404.html
 
 echo -e "$conf" > "$file_path"
 
