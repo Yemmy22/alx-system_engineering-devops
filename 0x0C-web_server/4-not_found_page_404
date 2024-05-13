@@ -60,9 +60,7 @@ server {
                 try_files \$uri \$uri/ =404;
 		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
         }
-        location /xyzfoo {                                                            # First attempt to serve request as file, then                  # as directory, then fall back to displaying a 404.
-                error_page 404 /custom_404.html;
-        }
+	error_page 404 /custom_404.html;
 
         # pass PHP scripts to FastCGI server
         #
