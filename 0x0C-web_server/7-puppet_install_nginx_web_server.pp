@@ -1,18 +1,17 @@
 # This manifest installs and configures nginx on a new ubuntu machine to listen on port 80, with a redirection and custom 404 page.
 
-package { 'update' :
-  ensure          => 'installed',
-  provider        => 'apt-get',
-  install_options => ['y'],
+exec { 'update' :
+  path    => '/usr/bin',
+  command => 'apt -y update',
 
 }
 package { 'nginx' :
   ensure   => 'installed',
-  provider => 'apt-get',
+  provider => 'apt',
 }
-exec {
-  path => '/usr/sbin',
-  command => 'ufw allow Nginx HTTP',
+exec { 'listen on port 80' :
+  path    => '/usr/sbin',
+  command => 'ufw allow \'Nginx HTTP\'',
 }
 
 
@@ -67,13 +66,13 @@ server {
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files \$uri \$uri/ =404;
+                try_files $uri $uri/ =404;
         }
 
         location /redirect_me {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files \$uri \$uri/ =404;
+                try_files $uri $uri/ =404;
 		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
         }
 	error_page 404 /custom_404.html;
@@ -117,17 +116,16 @@ server {
 #       }
 #}
 EOT
-  notify  => Service['nginx'],
 }
 
 file { '/var/www/html/index.html':
   ensure  => present,
-  content => 'Hello World!',
+  content => "Hello World!\n",
 }
 
 file { '/var/www/html/custom_404.html':
   ensure  => present,
-  content => "Ceci n'est pas une page\n\n\n",
+  content => "Ceci n'est pas une page\n\n\n\n",
 }
 
 service { 'nginx':
