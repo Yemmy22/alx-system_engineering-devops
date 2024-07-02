@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This script starts Apache2 web server and sets the Server name to teh machine's default host name.
+
+hostname=$(hostname)
+
+# Uncomment the ServerName directive and set it to the hostname 
+sed -i "s/^\s*#ServerName\s.*/ServerName $hostname/g" /etc/apache2/sites-enabled/000-default.conf
+sed -i "s/^\s*#ServerName\s.*/ServerName $hostname/g" /etc/apache2/sites-available/000-default.conf
+
+# Add ServerName global config file if not set
+grep -q "ServerName" /etc/apache2/apache2.conf || echo "ServerName $hostname" >> /etc/apache2/apache2.conf
+
+if pgrep apache2 > /dev/null; then
+	service apache2 restart;
+else
+	service apache2 start;
+fi 
