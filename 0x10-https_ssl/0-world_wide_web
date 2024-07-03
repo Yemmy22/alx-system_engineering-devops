@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-
-#
+# This script takes argument from the command line and prints in
+# formatted output, information of inputed domamin and subdomain
 
 domain="bitflux.tech"
 subdomain_1="www"
