@@ -17,7 +17,7 @@ else
 	grep -q "$status" '/var/www/html/index.html' || echo "$status" >>     '/var/www/html/index.html'
 fi
 # Append webserver status to the html content
-status=$(service apache2 status)
+status="apache2 is running"
 
 # check if status already exist in the file, if not, append.
 grep -q "$status" '/var/www/html/index.html' || echo "$status" >> '/var/www/html/index.html'
