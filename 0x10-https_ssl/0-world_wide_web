@@ -14,12 +14,13 @@ if [ -z "$2" ] && [ "$1" ]; then
 	for sub in "${subdomains[@]}"; do
 		full_domain="${!sub}.$1"
 		query_ip="$(dig "$full_domain" | grep -A1 'ANSWER SECTION:')"
-		echo "$query_ip" | awk 'NF==5 {gsub(/\.$/, "", $1); print "The subdomain " $1 " is a " $4  " record and points to "$5}'
+		echo "$query_ip" | awk -v sub_d="${!sub}" 'NF==5 {gsub(/\.$/, "", $1); print "The subdomain " sub_d " is a " $4  " record and points to "$5}'
 	done
 	# Prints information of the specified subdomain
 	# if provided
 else
 	full_domain="$2.$1";
 	query_ip="$(dig "$full_domain" | grep -A1 'ANSWER SECTION:')"
-	echo "$query_ip" | awk 'NF==5 {gsub(/\.$/, "", $1); print "The subdomain " $1 " is a " $4  " record and points to "$5}'
+	echo "$query_ip" | awk -v sub_d="$2" 'NF==5 {gsub(/\.$/, "", $1); print "The subdomain " sub_d " is a " $4  " record and points to "$5}'
+	
 fi
