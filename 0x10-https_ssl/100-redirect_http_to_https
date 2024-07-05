@@ -1,0 +1,40 @@
+global
+        log 127.0.0.1 local0 notice
+        maxconn 2000
+        user haproxy
+        group haproxy
+        tune.ssl.default-dh-param 2048
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        retries 3
+        timeout connect 5000
+        timeout client  100000
+        timeout server  100000
+
+frontend http
+        bind *:80
+        http-response set-header X-Served-By %s
+	redirect scheme https code 301 if !{ ssl_fc }
+
+frontend https
+        bind *:80
+        bind *:443 ssl crt /etc/haproxy/certs/www.bitflux.tech.pem
+        http-response set-header X-Served-By %s
+        acl is_root path -m beg /
+        acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+        use_backend letsencrypt-backend if letsencrypt-acl
+        use_backend web_server if is_root
+        default_backend web_server
+
+backend web_server
+        mode http
+        balance roundrobin
+        server 35278-web-01 52.3.220.176:80 check
+        server 35278-web-02 54.144.136.98:80 check
+
+backend letsencrypt-backend
+  server letsencrypt 127.0.0.1:54321
