@@ -6,6 +6,6 @@ if  ! nginx -v &> /dev/null; then
         sudo apt-get install -y nginx;
 	sudo service nginx restart;
 else 
-        sudo rm /etc/nginx/sites-enabled/default;                            sudo ln -s /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default;
+        sudo rm /etc/nginx/sites-enabled/default;                            sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default;
         sudo service nginx restart;
 fi
