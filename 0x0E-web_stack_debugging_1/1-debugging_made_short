@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This bash script runs an nginx program - which by default binds to port 80 - if it exist or installs and runs the program if it does not exist. It also installs curl if it does not exist.
+
+if  nginx -v &> /dev/null; then
+	sudo rm /etc/nginx/sites-enabled/default;
+	sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default;
+	sudo service nginx restart;
+fi
