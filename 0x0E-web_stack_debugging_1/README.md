@@ -1,0 +1,1 @@
+This is the second episode of the debugging series. The task at hand is to investigate and detect the cause of error(s) or source(s) of process failure(s) as well as implement the necessary solution to ensure error/failure free execution.
