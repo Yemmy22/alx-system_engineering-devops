@@ -1,1 +1,0 @@
-This project is about setting up web server redundancy and high availabilty through the installation and configuration of an additional Nginx web server on a new ubuntu machine, and HAproxy load balancer.
