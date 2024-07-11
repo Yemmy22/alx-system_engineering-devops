@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# This script takes argument from the command line and prints in
+# formatted output, information of inputed domain and subdomain
+
+subdomain_1="www"
+subdomain_2="lb-01"
+subdomain_3="web-01"
+subdomain_4="web-02"
+subdomains=("subdomain_1" "subdomain_2" "subdomain_3" "subdomain_4")
+
+# Prints information of all sub-domains when 
+# only the domain is provided
+if [ -z "$2" ] && [ "$1" ]; then
+	for sub in "${subdomains[@]}"; do
+		full_domain="${!sub}.$1"
+		query_ip="$(dig "$full_domain" | grep -A1 'ANSWER SECTION:')"
+		echo "$query_ip" | awk -v sub_d="${!sub}" 'NF==5 {gsub(/\.$/, "", $1); print "The subdomain " sub_d " is a " $4  " record and points to "$5}'
+	done
+	# Prints information of the specified subdomain
+	# if provided
+else
+	full_domain="$2.$1";
+	query_ip="$(dig "$full_domain" | grep -A1 'ANSWER SECTION:')"
+	echo "$query_ip" | awk -v sub_d="$2" 'NF==5 {gsub(/\.$/, "", $1); print "The subdomain " sub_d " is a " $4  " record and points to "$5}'
+	
+fi
