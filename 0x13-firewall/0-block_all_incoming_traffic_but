@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Install and configure ufw to listen only on ports 22, 80 and 443
+
+if ! [ 'command -v "$ufw"' ]; then
+	sudo apt install ufw;
+fi
+
+ufw default deny incoming
+ufw allow 22
+ufw allow 443
+ufw allow 80
+echo "y" | ufw enable
