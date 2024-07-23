@@ -16,5 +16,7 @@ sed -i 's/#user www-data/user nginx/g' "$conf"
 #Give read, write and execute to owner exclusively
 chmod 744 "$conf"
 
+pkill apache2
+
 # Reload nginx
 sudo -u nginx service nginx start
