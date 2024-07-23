@@ -4,11 +4,6 @@
 file_path="/etc/nginx/sites-available/default"
 conf="/etc/nginx/nginx.conf"
 
-# Add nginx user if it doesn't exist
-if ! id -u nginx > /dev/null 2>&1; then
-	sudo useradd nginx;
-fi
-
 # Allow traffic on port 8080
 sudo ufw allow 8080
 
@@ -16,7 +11,10 @@ sudo ufw allow 8080
 sed -i 's/80/8080/g' "$file_path"
 
 # Change the user from www-data to nginx in the nginx configuration file
-sed -i 's/www-data/nginx/g' "$conf"
+sed -i 's/#user www-data/user nginx/g' "$conf"
+
+#Give read, write and execute to owner exclusively
+chmod 744 "$conf"
 
 # Reload nginx
-sudo service nginx reload
+sudo -u nginx service nginx start
