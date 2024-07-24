@@ -5,6 +5,6 @@ backup="backup.sql"
 archive_name="$(date +%d-%m-%Y).tar.gz"
 
 if [ "$#" -eq 1 ]; then
-	mysqldump -uroot -p"$1" --all-databases > "$backup";
+	mysqldump -u root -p "$1" --all-databases > "$backup";
 	tar -czvf "$archive_name" "$backup";
 fi
