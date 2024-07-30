@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""Returns information about an employees TODO list progress
-fetched from REST API
-"""
+"""Returns information about an employees TODO list progress"""
 
 from sys import argv
 import requests
