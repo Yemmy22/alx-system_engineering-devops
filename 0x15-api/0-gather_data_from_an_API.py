@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """Returns information about an employees TODO list progress"""
 
-from sys import argv
+
 import requests
+from sys import argv
 
 
 if len(argv) == 2:
@@ -26,7 +27,11 @@ if len(argv) == 2:
 
 
 if __name__ == "__main__":
-    print(f"Employee EMPLOYEE_NAME is done with tasks({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}): ")
+    print("Employee {} is done with tasks({}/{}):".format(
+        EMPLOYEE_NAME,
+        NUMBER_OF_DONE_TASKS,
+        TOTAL_NUMBER_OF_TASKS
+        ))
 
     for task in TASK_TITLE:
         print("\t {}".format(task.get('title')))
