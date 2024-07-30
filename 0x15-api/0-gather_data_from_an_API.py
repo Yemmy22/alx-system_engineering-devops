@@ -26,8 +26,7 @@ if len(argv) == 2:
 
 
 if __name__ == "__main__":
-    print(f"Employee EMPLOYEE_NAME is done with tasks(
-            {NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}): ")
+    print(f"Employee EMPLOYEE_NAME is done with tasks({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}): ")
 
     for task in TASK_TITLE:
         print("\t {}".format(task.get('title')))
