@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 '''
 Returns information about an employees TODO list progress
 fetched from REST API
