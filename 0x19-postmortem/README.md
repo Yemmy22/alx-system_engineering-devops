@@ -1,46 +1,38 @@
 INCIDENT SUMMARY:
-Between the hours of 14:30 and 16:02 UTC on the 17th of August, 2024, 20 Million users were denied access to a subset of services on our application. 
-The event was triggered following deployment of application upgrades at 14:30 UTC. 
-The update contained code for creation of new server blocks intended to host files for new services being rolled out by the company.
-A bug in this code caused essential configuration filenames to rename with incorrect extension thereby, invalidating the overall configuration setup leading to server downtime. 
-The event was detected by our datadog monitoring system and on-call persons were alerted via PagerDuty and Slack app.  The incident response team swiftly commenced troubleshooting the possible causes including DDOS attack, network bugs, request overload and code bugs on recently deployed applications.
-This is a major (level 2) incident which affected 20% of our web application users.
-There was further impact as noted by mentions on social media especially Twitter and LinkedIn of the event, as well as multiple calls to the customer service department, raised in relation to this incident. 
- 
- 
 
+At precisely 14:30 UTC on August 17th, 2024, the universe conspired against us, and 20 million users were suddenly thrust into the cruel, dark void of “Service Unavailable.” It was like the internet equivalent of forgetting your keys inside the house. For 92 excruciating minutes, our users couldn’t access a significant portion of our services, leading to widespread panic, social media meltdowns, and an alarming number of calls to customer service. The root cause? A mischievous bug that decided it would be hilarious to rename crucial configuration files with the wrong extensions, throwing our servers into a state of confusion.
 
-TIMELINE: 
+Thank you, bug. Very funny.
 
+TIMELINE:
 
-14:30 UTC - On the 17th of August, 2024, our integrated datadog/PagerDuty monitoring system was triggered and the Head of Engineering was paged. A surge in user complaints to our customer hotlines further confirmed the emergency.
-14:48 UTC - Next, an on-call network engineer was paged, because the Head of Engineering didn't own the service, delaying the response by 17 minutes.
-15:05 UTC - After receiving a page, a network engineer came online on the Slack app.
-15:20 UTC – The network engineer confirmed the absence of networking impediments because ICMP tests from remote origins returned response signals from the affected node and the existing firewall rules supported bidirectional interaction.  This led to the assumption that there might be a need to review cluster configuration on affected nodes.
- 
-15:23 UTC - Because the engineer did not have a background on the assumed cause affecting the EC2 nodes, a second alert was sent to a full stack engineer who came into the room at 15:33 UTC.
- 
-15:33 UTC – The backend engineer focused on system configuration and resource retrieval  tests, and discovered a failure to generate response once the web application URI requests at a certain level of file path.
-16:02 UTC – The issue was resolved and the affected server was back to serving resources which it was previously unable to serve.
- ROOT CAUSE AND RESOLUTION:
-The application had an outage because the server could not respond to requests received.
-The request could not be responded because relevant files at root of the node were inaccessible
-The files were inaccessible because there was a mismatch in name of files requested and files available to be served.
-Because a change was pushed resulting in mismatch occasioned by erroneous file extension name.
+14:30 UTC: Our ever-vigilant Datadog monitoring system shrieked in terror, and the Head of Engineering was paged. Meanwhile, Twitter and LinkedIn were already ablaze with users sharing their tales of woe.
 
+14:48 UTC: The Head of Engineering, realizing this was beyond a mere “turn it off and on again” issue, paged an on-call network engineer. Unfortunately, this took 17 minutes longer than anyone would have liked. Maybe they were on their second coffee break?
+
+15:05 UTC: The network engineer finally appeared, armed with Slack and an array of pings.
+
+15:20 UTC: After some serious head-scratching and a few ICMP tests, the network engineer concluded that the network was, surprisingly, not the problem. But something smelled fishy, and it wasn’t lunch.
+
+15:23 UTC: A full-stack engineer was called in as backup. We needed all hands on deck—and perhaps some extra brains.
+
+15:33 UTC: The backend engineer started probing the system like Sherlock Holmes, only to discover that the server was playing hide-and-seek with some critical files. Spoiler alert: the server was losing.
+
+16:02 UTC: After a tense 92 minutes, the issue was resolved, and our servers were back online, serving files like the heroes they were meant to be.
+
+ROOT CAUSE AND RESOLUTION:
+
+The root cause? A rogue code update that turned our servers into confused children looking for files that weren’t where they were supposed to be. This error was due to a file extension mismatch—an innocent typo with catastrophic consequences.
 
 RESOLUTION:
-We used a three-pronged approach to the recovery of the system by rolling back the most recent upgrades and reverted configuration builds to the older version being part of the last known system wide modifications. This was aimed to swiftly achieve uptime on the affected node.
-By increasing the size of unaffected EC2 Auto Scaling Group to increase the number of nodes available to support the workload which affected EC2s couldn’t serve, and reduce the likelihood of scheduling on oversubscribed nodes.
-Disabled the Escalator autoscaler to prevent the clusters from aggressively scaling-down
-Reverted the Build Engineering on the affected nodes to the previous version and redeployed a reviewed configuration build which fulfills the intent of the previous deployment without error.
-    
- CORRECTIVE ACTIONS:
-What can be improved/fixed:
-Generally, we must review our operations strategy in respect of deployment and ensure updates are well tested to avoid conflicts that break existing systems and ground operations. We can improve the accuracy of our alert systems and designated on-call persons to provide swifter resolution to emergent challenges in the future.
-Addressing the issue:
-In order to avoid a recurrence we must ensure that unit test verify that work has been properly maintained before builds are pushed
-Bulk operation workloads which are atypical of normal operation should be reviewed.
-Bulk ops should start slowly and monitored, increasing when service metrics appear nominal.
-Introduction of a secondary mechanism to collect information across clusters.
 
+We deployed the classic “ctrl+z” of server management: rolled back the update and reverted to the last known good configuration. We also ramped up our unaffected EC2 Auto Scaling Group to pick up the slack, disabled the overzealous Escalator autoscaler, and redeployed a corrected version of the configuration. It wasn’t glamorous, but it worked.
+
+CORRECTIVE ACTIONS:
+
+What can we improve? Apart from ensuring all code changes are thoroughly tested before release, we should consider:
+
+Mandatory typo-checking bootcamp for all engineers.
+Introducing a slow, cautious rollout for bulk operations—like tiptoeing through a minefield instead of charging in.
+Implementing a secondary monitoring mechanism across clusters to catch these issues before they catch us.
+In summary, we’ve learned that even the smallest mistakes can have a big impact. But with humor, resilience, and a good rollback strategy, we’ll keep our servers (and our users) happy.
