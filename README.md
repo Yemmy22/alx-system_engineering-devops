@@ -1,1 +1,1 @@
-This project introduces and tests the knowledge of shell (bash)
+This project commences retracing my steps through alx-system_engineering-devops
