@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# This script generates a 4096 bit key-pair in the file 'school'
-ssh-keygen -b 4096 -N betty -f school
-

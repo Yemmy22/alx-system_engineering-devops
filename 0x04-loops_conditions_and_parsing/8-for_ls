@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# This script prints all characters after the first hyphen within the name of contents of the current working directory
-
-for i in *; do
-	echo "${i#*-}"
-done

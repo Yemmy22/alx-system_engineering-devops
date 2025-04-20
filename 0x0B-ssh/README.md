@@ -1,1 +1,0 @@
-This project commences a train of projects involving interaction with remote servers and a number of tasks to test the understanding of required concepts and application. The focus of this particular project is the use of RSA in SSH connections to remote servers.

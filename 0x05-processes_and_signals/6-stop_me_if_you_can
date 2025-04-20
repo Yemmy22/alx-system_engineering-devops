@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# This script starts a process and ends it abruptly without the commands kill and killall.
-
-pkill -f "4-to_infinity_and_beyond"
